@@ -1,13 +1,26 @@
-.meals {
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
   align-items: center;
-  background: #0fa36b;
-  color: #464646;
+  color: blueviolet;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
   height: 100vh;
   justify-content: center;
   width: 100%;
+}
+
+.login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: space-around;
+  width: 350px;
 }
 
 .rocksGlass {
