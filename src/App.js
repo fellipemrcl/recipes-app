@@ -9,21 +9,55 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Profile from './pages/Profile';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header';
 
 function App() {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/meals" component={ Recipes } />
-        <Route path="/drinks" component={ Recipes } />
-        <Route path="/meals/:id" component={ RecipeDetails } />
-        <Route path="/drinks/:id" component={ RecipeDetails } />
-        <Route path="/meals/:id/in-progress" component={ RecipeInProgress } />
-        <Route path="/drinks/:id/in-progress" component={ RecipeInProgress } />
-        <Route path="/done-recipes" component={ DoneRecipes } />
-        <Route path="/favorite-recipes" component={ FavoriteRecipes } />
-        <Route path="/profile" component={ Profile } />
+        <Route path="/meals">
+          <div>
+            <Header title="Meals" showProfileIcon showSearchIcon />
+            <Recipes />
+          </div>
+        </Route>
+        <Route path="/drinks">
+          <div>
+            <Header title="Drinks" showProfileIcon showSearchIcon />
+            <Recipes />
+          </div>
+        </Route>
+        <Route path="/meals/:id">
+          <RecipeDetails />
+        </Route>
+        <Route path="/drinks/:id">
+          <RecipeDetails />
+        </Route>
+        <Route path="/meals/:id/in-progress">
+          <RecipeInProgress />
+        </Route>
+        <Route path="/drinks/:id/in-progress">
+          <RecipeInProgress />
+        </Route>
+        <Route path="/done-recipes">
+          <div>
+            <Header title="Done Recipes" showProfileIcon />
+            <DoneRecipes />
+          </div>
+        </Route>
+        <Route path="/favorite-recipes">
+          <div>
+            <Header title="Favorite Recipes" showProfileIcon />
+            <FavoriteRecipes />
+          </div>
+        </Route>
+        <Route path="/profile">
+          <div>
+            <Header title="Profile" showProfileIcon />
+            <Profile />
+          </div>
+        </Route>
       </Switch>
     </div>
   );
