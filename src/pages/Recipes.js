@@ -1,8 +1,9 @@
 import React from 'react';
+import CardFoodsDrinks from '../components/CardFoodsDrinks';
 
 function Recipes() {
   return (
-    <div>Recipes</div>
+    <CardFoodsDrinks />
   );
 }
 
