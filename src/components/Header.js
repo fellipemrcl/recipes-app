@@ -1,21 +1,29 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header({ title, showProfileIcon, showSearchIcon }) {
+  const history = useHistory();
+  const [showSearchBar, setShowSearchBar] = useState(false);
+
   return (
     <header>
-      <h1 data-testId="page-title">{title}</h1>
+      <h1 data-testid="page-title">{title}</h1>
       {showProfileIcon && (
-        <button>
-          <img src={ profileIcon } alt="" data-testId="profile-top-btn" />
+        <button onClick={ () => history.push('/profile') }>
+          <img src={ profileIcon } alt="" data-testid="profile-top-btn" />
         </button>
       )}
       {showSearchIcon && (
-        <button>
-          <img src={ searchIcon } alt="" data-testId="search-top-btn" />
-        </button>)}
+        <button onClick={ () => setShowSearchBar(!showSearchBar) }>
+          <img src={ searchIcon } alt="" data-testid="search-top-btn" />
+        </button>
+      )}
+      {showSearchBar && (
+        <input type="text" data-testid="search-input" />
+      )}
     </header>
   );
 }
