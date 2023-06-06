@@ -56,7 +56,7 @@ export default function SearchBar() {
         data-testid="exec-search-btn"
         onClick={ () => {
           if (options.radio === 'first' && options.text.length !== 1) {
-            alert('Your search must have only 1 (one) character');
+            global.alert('Your search must have only 1 (one) character');
             return;
           }
           fetchMealApi(options.radio, options.text);
