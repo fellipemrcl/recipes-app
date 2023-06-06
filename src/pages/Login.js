@@ -7,7 +7,7 @@ function Login() {
   const [atived, setAtived] = useState(true);
 
   const history = useHistory();
-
+  console.log(history);
   const minimo = 7;
   const senhaCorreta = password.length >= minimo;
   const emailCorreto = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email);
