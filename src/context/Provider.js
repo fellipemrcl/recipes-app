@@ -4,8 +4,12 @@ import recipeContext from './Context';
 
 function Provider({ children }) {
   const [meals, setMeals] = useState([]);
-  const fetchMealApi = (option, busca) => {
-    let url = 'https://www.themealdb.com/api/json/v1/1/';
+  const fetchMealApi = (option, busca, pathname) => {
+    const mealUrl = 'https://www.themealdb.com/api/json/v1/1/';
+    const drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/';
+
+    let url = pathname === '/meals' ? mealUrl : drinkUrl;
+
     if (option === 'ingredient') url += `filter.php?i=${busca}`;
     if (option === 'name') url += `search.php?s=${busca}`;
     if (option === 'first') url += `search.php?f=${busca}`;
