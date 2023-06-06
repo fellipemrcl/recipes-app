@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [atived, setAtived] = useState(true);
+
+  const history = useHistory();
 
   const minimo = 7;
   const senhaCorreta = password.length >= minimo;
@@ -13,7 +16,14 @@ function Login() {
   useEffect(() => {
     setAtived(disabled);
   }, [disabled]);
+  const handleClick = () => {
+    const storageEmail = {
+      email,
+    };
+    localStorage.setItem('user', JSON.stringify(storageEmail));
 
+    history.push('/meals');
+  };
   return (
     <div className="login">
       <h1>Login</h1>
@@ -39,7 +49,14 @@ function Login() {
           onChange={ (e) => setPassword(e.target.value) }
         />
       </label>
-      <button data-testid="login-submit-btn" disabled={ atived }>Entrar</button>
+      <button
+        data-testid="login-submit-btn"
+        onClick={ handleClick }
+        disabled={ atived }
+      >
+        Enter
+
+      </button>
     </div>
   );
 }
