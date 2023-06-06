@@ -10,6 +10,7 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 import Profile from './pages/Profile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
           </div>
         </Route>
       </Switch>
+      <Footer />
     </div>
   );
 }

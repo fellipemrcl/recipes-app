@@ -1,26 +1,45 @@
-* {
-  margin: 0;
-  padding: 0;
+html {
+  height: 100%;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-height: 100vh;
+  padding: 0;
+}
+
+.root {
+  flex: 1;
+}
+
+.app-container {
+  border-bottom: 3px solic green;
+  display: flex;
+  flex-direction: column;
+  min-height: 543px;
+}
+
+.content {
+  flex: 1;
+}
+
+.fixFooter {
+  bottom: 0;
+  margin-top: 50px;
+}
+
+.meals {
   align-items: center;
-  color: blueviolet;
+  background: #0fa36b;
+  color: #464646;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
   height: 100vh;
   justify-content: center;
   width: 100%;
-}
-
-.login {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 300px;
-  justify-content: space-around;
-  width: 350px;
 }
 
 .rocksGlass {
@@ -34,7 +53,6 @@ body {
   opacity: 0.6;
   transform-origin: 36px 66px;
 }
-
 #iceRight {
   animation: clink .8s .2s infinite ease;
   opacity: 0.6;
