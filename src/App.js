@@ -17,6 +17,12 @@ function App() {
     <div>
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route path="/meals/:id">
+          <RecipeDetails />
+        </Route>
+        <Route path="/drinks/:id">
+          <RecipeDetails />
+        </Route>
         <Route path="/meals">
           <div>
             <Header title="Meals" showProfileIcon showSearchIcon />
@@ -28,12 +34,6 @@ function App() {
             <Header title="Drinks" showProfileIcon showSearchIcon />
             <Recipes />
           </div>
-        </Route>
-        <Route path="/meals/:id">
-          <RecipeDetails />
-        </Route>
-        <Route path="/drinks/:id">
-          <RecipeDetails />
         </Route>
         <Route path="/meals/:id/in-progress">
           <RecipeInProgress />
