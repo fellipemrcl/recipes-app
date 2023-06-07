@@ -1,5 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import DrinkDetail from '../components/DrinkDetail';
+import MealDetail from '../components/MealDetail';
 
 function RecipeDetails() {
   const history = useHistory();
@@ -7,15 +9,16 @@ function RecipeDetails() {
   const [recommendation, setRecommendation] = useState(null);
   const scrollContainerRef = useRef(null);
 
+  const [isMeal, setIsMeal] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       const isMealsPage = history.location.pathname.includes('meals');
-      const url = isMealsPage
-        ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
-        : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-
-      const foodInfo = await fetch(url).then((response) => response.json());
-      console.log(foodInfo);
+      if (isMealsPage) {
+        setIsMeal(true);
+      } else {
+        setIsMeal(false);
+      }
       const recommendationUrl = isMealsPage
         ? 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
         : 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -50,6 +53,7 @@ function RecipeDetails() {
 
   return (
     <div>
+      {isMeal ? <MealDetail /> : <DrinkDetail />}
       {recommendation && (
         <div>
           <h2>Recomendação:</h2>
