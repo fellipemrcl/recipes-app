@@ -31,24 +31,6 @@ function RecipeDetails() {
     fetchData();
   }, [history.location.pathname, id]);
 
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: -scrollContainerRef.current.offsetWidth / 2,
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: scrollContainerRef.current.offsetWidth / 2,
-        behavior: 'smooth',
-      });
-    }
-  };
-
   const magicNumberSix = 6;
 
   return (
@@ -101,20 +83,14 @@ function RecipeDetails() {
               ))
             )}
           </div>
-          {recommendation
-          && recommendation.drinks && recommendation.drinks.length > 2 && (
-            <button onClick={ scrollLeft }>
-              Scroll Left
-            </button>
-          )}
-          {recommendation
-          && recommendation.drinks && recommendation.drinks.length > 2 && (
-            <button onClick={ scrollRight }>
-              Scroll Right
-            </button>
-          )}
         </div>
       )}
+      <button
+        data-testid="start-recipe-btn"
+        style={ { position: 'fixed', bottom: '0px' } }
+      >
+        Start Recipe
+      </button>
     </div>
   );
 }
