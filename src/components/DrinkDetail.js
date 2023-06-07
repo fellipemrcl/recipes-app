@@ -2,31 +2,38 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function DrinkDetail() {
-  const [drink, setDrink] = useState({});
+  const [drink, setDrink] = useState({
+    strDrinkThumb: '',
+    strDrink: '',
+    strInstructions: '',
+  });
   const { id } = useParams();
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const getFoodInfo = async () => {
-      const foodInfo = await fetch(url).then((response) => response.json());
-      setDrink(foodInfo.drinks[0]);
+      try {
+        const foodInfo = await fetch(url).then((response) => response.json());
 
-      const ingredientAmount = 15;
-      const ingredientsWithMeasure = [];
-      for (let index = 1; index <= ingredientAmount; index += 1) {
-        const currentIngredient = `strIngredient${index}`;
-        const currentMeasure = `strMeasure${index}`;
-        const ingredient = foodInfo.drinks[0][currentIngredient];
-        const measure = foodInfo.drinks[0][currentMeasure];
-        if (measure !== null && measure !== ''
-          && ingredient !== null && ingredient !== '') {
-          ingredientsWithMeasure.push(`${ingredient} - ${measure}`);
+        setDrink(foodInfo.drinks[0]);
+        const ingredientAmount = 15;
+        const ingredientsWithMeasure = [];
+        for (let index = 1; index <= ingredientAmount; index += 1) {
+          const currentIngredient = `strIngredient${index}`;
+          const currentMeasure = `strMeasure${index}`;
+          const ingredient = foodInfo.drinks[0][currentIngredient];
+          const measure = foodInfo.drinks[0][currentMeasure];
+          if (measure !== null && measure !== ''
+            && ingredient !== null && ingredient !== '') {
+            ingredientsWithMeasure.push(`${ingredient} - ${measure}`);
+          }
         }
+        setIngredients(ingredientsWithMeasure);
+      } catch (error) {
+        console.log(error);
       }
-      setIngredients(ingredientsWithMeasure);
     };
-
     getFoodInfo();
   }, []);
   return (
@@ -44,7 +51,7 @@ export default function DrinkDetail() {
       <h3
         data-testid="recipe-category"
       >
-        {drink.strCategory}
+        {drink.strAlcoholic}
       </h3>
       {ingredients.map((ingredient, index) => (
         <p

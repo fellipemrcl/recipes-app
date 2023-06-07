@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function MealDetail() {
-  const [meal, setMeal] = useState({});
+  const [meal, setMeal] = useState({
+    strMealThumb: '',
+    strMeal: '',
+    strYoutube: '',
+    strInstructions: '',
+  });
   const { id } = useParams();
   const [ingredients, setIngredients] = useState([]);
 
@@ -42,6 +47,7 @@ export default function MealDetail() {
         {meal.strMeal}
       </h1>
       <iframe
+        data-testid="video"
         title="video da receita"
         width="420"
         height="315"

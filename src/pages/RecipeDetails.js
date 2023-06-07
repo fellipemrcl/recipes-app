@@ -9,7 +9,7 @@ function RecipeDetails() {
   const [recommendation, setRecommendation] = useState(null);
   const scrollContainerRef = useRef(null);
 
-  const [isMeal, setIsMeal] = useState(true);
+  const [isMeal, setIsMeal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
