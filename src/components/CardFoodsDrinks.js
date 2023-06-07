@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { drinkApi, mealsApi } from './RecipeApi';
+import recipeContext from '../context/Context';
 
 function CardFoodsDrinks() {
   const maxCard = 12;
   const cardIndex = 0;
   const location = useLocation();
-  const [food, setMeals] = useState([]);
-  const [drink, setDrinks] = useState([]);
+  // const [food, setMeals] = useState([]);
+  // const [drink, setDrinks] = useState([]);
   const [isLoading, setIsLoanding] = useState(true);
+  const { meals, setMeals, drinks, setDrinks } = useContext(recipeContext);
 
   const updateApi = async () => {
-    const { drinks } = await drinkApi();
-    const { meals } = await mealsApi();
-    setDrinks(drinks);
-    setMeals(meals);
+    const drinksData = await drinkApi();
+    const mealsData = await mealsApi();
+    setDrinks(drinksData.drinks);
+    setMeals(mealsData.meals);
     setIsLoanding(false);
   };
 
@@ -25,33 +27,33 @@ function CardFoodsDrinks() {
     <div>
       {!isLoading ? (
         <div>
-          {location.pathname === '/meals' ? (food.slice(cardIndex, cardIndex + maxCard)
-            .map((meals, index) => (
+          {location.pathname === '/meals' ? (meals.slice(cardIndex, cardIndex + maxCard)
+            .map((meal, index) => (
               <div key={ index } data-testid={ `${index}-recipe-card` }>
                 <img
                   data-testid={ `${index}-card-img` }
-                  alt={ meals.strMealThumb }
-                  src={ meals.strMealThumb }
+                  alt={ meal.strMealThumb }
+                  src={ meal.strMealThumb }
                 />
                 <h3
                   data-testid={ `${index}-card-name` }
                 >
-                  {meals.strMeal}
+                  {meal.strMeal}
 
                 </h3>
               </div>
-            ))) : (drink.slice(cardIndex, cardIndex + maxCard)
-            .map((drinks, index) => (
+            ))) : (drinks.slice(cardIndex, cardIndex + maxCard)
+            .map((drink, index) => (
               <div key={ index } data-testid={ `${index}-recipe-card` }>
                 <img
                   data-testid={ `${index}-card-img` }
-                  alt={ drinks.strDrinkThumb }
-                  src={ drinks.strDrinkThumb }
+                  alt={ drink.strDrinkThumb }
+                  src={ drink.strDrinkThumb }
                 />
                 <h3
                   data-testid={ `${index}-card-name` }
                 >
-                  {drinks.strDrink}
+                  {drink.strDrink}
 
                 </h3>
               </div>
