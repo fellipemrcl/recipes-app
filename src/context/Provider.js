@@ -5,6 +5,10 @@ import recipeContext from './Context';
 function Provider({ children }) {
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [saveMeals, setSaveMeals] = useState('');
+  const [saveDrink, setSaveDrink] = useState('');
+  const [validatorCategory, setValidatorCategory] = useState(false);
+  const [id, setId] = useState('');
   const fetchMealApi = (option, busca, pathname) => {
     const mealUrl = 'https://www.themealdb.com/api/json/v1/1/';
     const drinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/';
@@ -32,6 +36,14 @@ function Provider({ children }) {
     setDrinks,
     setMeals,
     fetchMealApi,
+    saveMeals,
+    setSaveMeals,
+    saveDrink,
+    setSaveDrink,
+    validatorCategory,
+    setValidatorCategory,
+    id,
+    setId,
   }), [fetchMealApi]);
 
   return (
