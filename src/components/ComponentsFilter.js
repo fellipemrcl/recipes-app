@@ -1,28 +1,30 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import recipeContext from '../context/Context';
-import { drinkApi, mealsApi } from './RecipeApi';
+import { filterCategory } from './RecipeApi';
 
-function CardFoodsDrinks() {
-  const maxCard = 12;
-  const cardIndex = 0;
-  const history = useHistory();
+function ComponentsFilters() {
+  const maxCategory = 12;
+  const categoryIndex = 0;
   const location = useLocation();
-  const [food, setMeals] = useState([]);
-  const [drink, setDrinks] = useState([]);
-  const [isLoading, setIsLoanding] = useState(true);
-  const { setId } = useContext(recipeContext);
+  const history = useHistory();
+  const [foodCategory, setMealsCategory] = useState([]);
+  const [drinkCategory, setDrinksCategory] = useState([]);
+  const { saveMeals, saveDrink, validatorCategory, setId } = useContext(recipeContext);
 
-  const updateApi = async () => {
-    const { drinks } = await drinkApi();
-    const { meals } = await mealsApi();
-    setDrinks(drinks);
-    setMeals(meals);
-    setIsLoanding(false);
+  const filterCategoryApi = async () => {
+    if (location.pathname === '/meals') {
+      const { meals } = await filterCategory(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${saveMeals}`);
+      setMealsCategory(meals);
+    } else {
+      const { drinks } = await filterCategory(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${saveDrink}`);
+      setDrinksCategory(drinks);
+    }
   };
 
   useEffect(() => {
-    updateApi();
+    filterCategoryApi();
   }, []);
 
   const handleClick = ({ target }) => {
@@ -37,9 +39,10 @@ function CardFoodsDrinks() {
 
   return (
     <div>
-      {!isLoading ? (
+      {validatorCategory === true ? (
         <div>
-          {location.pathname === '/meals' ? (food.slice(cardIndex, cardIndex + maxCard)
+          {location.pathname === '/meals' ? (foodCategory
+            .slice(categoryIndex, categoryIndex + maxCategory)
             .map((meals, index) => (
               <div key={ index } data-testid={ `${index}-recipe-card` }>
                 <button
@@ -58,7 +61,7 @@ function CardFoodsDrinks() {
 
                 </h3>
               </div>
-            ))) : (drink.slice(cardIndex, cardIndex + maxCard)
+            ))) : (drinkCategory.slice(categoryIndex, categoryIndex + maxCategory)
             .map((drinks, index) => (
               <div key={ index } data-testid={ `${index}-recipe-card` }>
                 <button
@@ -79,12 +82,8 @@ function CardFoodsDrinks() {
               </div>
             )))}
         </div>
-      ) : (
-        <div>
-          <h1>Carregando</h1>
-        </div>
-      )}
+      ) : (<div />)}
     </div>
   );
 }
-export default CardFoodsDrinks;
+export default ComponentsFilters;

@@ -4,6 +4,10 @@ import recipeContext from './Context';
 
 function Provider({ children }) {
   const [meals, setMeals] = useState([]);
+  const [saveMeals, setSaveMeals] = useState('');
+  const [saveDrink, setSaveDrink] = useState('');
+  const [validatorCategory, setValidatorCategory] = useState(false);
+  const [id, setId] = useState('');
   const fetchMealApi = (option, busca) => {
     let url = 'https://www.themealdb.com/api/json/v1/1/';
     if (option === 'ingredient') url += `filter.php?i=${busca}`;
@@ -17,6 +21,14 @@ function Provider({ children }) {
   const value = useMemo(() => ({
     meals,
     fetchMealApi,
+    saveMeals,
+    setSaveMeals,
+    saveDrink,
+    setSaveDrink,
+    validatorCategory,
+    setValidatorCategory,
+    id,
+    setId,
   }), [fetchMealApi]);
 
   return (
