@@ -1,23 +1,24 @@
-import React, { useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import DrinkDetail from '../components/DrinkDetail';
+import MealDetail from '../components/MealDetail';
 
 function RecipeDetails() {
   const history = useHistory();
-  const { id } = useParams();
+  const [isMeal, setIsMeal] = useState(true);
+
   useEffect(() => {
-    const url = history.location.pathname.includes('meals')
-      ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
-      : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-
-    const getFoodInfo = async () => {
-      const foodInfo = await fetch(url).then((response) => response.json());
-      console.log(foodInfo);
-    };
-
-    getFoodInfo();
+    if (history.location.pathname.includes('meals')) {
+      setIsMeal(true);
+    } else {
+      setIsMeal(false);
+    }
   }, [history.location.pathname]);
 
-  return <div>oi</div>;
+  return (
+    isMeal ? <MealDetail /> : <DrinkDetail />
+
+  );
 }
 
 export default RecipeDetails;
