@@ -34,6 +34,7 @@ export default function MealDetail() {
 
     getFoodInfo();
   }, []);
+
   return (
     <div>
       <img
