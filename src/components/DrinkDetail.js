@@ -36,6 +36,7 @@ export default function DrinkDetail() {
     };
     getFoodInfo();
   }, []);
+
   return (
     <div>
       <img
