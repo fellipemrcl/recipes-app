@@ -1,8 +1,13 @@
 import React from 'react';
+import BtnFoodsDrinks from '../components/BtnFoodsDrinks';
+import CardFoodsDrinks from '../components/CardFoodsDrinks';
 
 function Recipes() {
   return (
-    <div>Recipes</div>
+    <div>
+      <BtnFoodsDrinks />
+      <CardFoodsDrinks />
+    </div>
   );
 }
 
