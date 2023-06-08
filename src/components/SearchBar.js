@@ -8,6 +8,7 @@ export default function SearchBar() {
     text: '',
     radio: '',
   });
+
   const handleChange = (event) => {
     setOptions({ ...options, text: event.target.value });
   };
@@ -15,6 +16,7 @@ export default function SearchBar() {
     setOptions({ ...options, radio: event.target.name });
   };
   const location = useLocation();
+
   return (
     <div>
       <input
