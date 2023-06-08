@@ -10,6 +10,7 @@ function RecipeDetails() {
   const scrollContainerRef = useRef(null);
 
   const [isMeal, setIsMeal] = useState(false);
+  const [isRecipeDone, setIsRecipeDone] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +31,14 @@ function RecipeDetails() {
 
     fetchData();
   }, [history.location.pathname, id]);
+
+  useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes) {
+      const isDone = doneRecipes.some((recipe) => recipe.id === id);
+      setIsRecipeDone(isDone);
+    }
+  }, [id]);
 
   const magicNumberSix = 6;
 
@@ -85,12 +94,14 @@ function RecipeDetails() {
           </div>
         </div>
       )}
-      <button
-        data-testid="start-recipe-btn"
-        style={ { position: 'fixed', bottom: '0px' } }
-      >
-        Start Recipe
-      </button>
+      {!isRecipeDone && (
+        <button
+          data-testid="start-recipe-btn"
+          style={ { position: 'fixed', bottom: '0px' } }
+        >
+          Start Recipe
+        </button>
+      )}
     </div>
   );
 }
