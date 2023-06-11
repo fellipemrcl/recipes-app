@@ -1,92 +1,98 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Profile from '../pages/Profile';
 
-import { renderWithRouter } from './helpers/renderWithRouter';
+describe('Profile', () => {
+  const emailTest = 'test@example.com';
+  const profileTest = 'profile-email';
 
-import App from '../App';
-
-describe('Testes da página de Login', () => {
-  const EMAIL_ID = 'email-input';
-  const PASSWORD_ID = 'password-input';
-  const BTN_LOGIN_ID = 'login-submit-btn';
-  const BTN_PROFILE_ID = 'profile-top-btn';
-  const USER_EMAIL_EL_ID = 'profile-email';
-  const BTN_DONE_RECIPES_ID = 'profile-done-btn';
-  const BTN_FAVORITE_RECIPES_ID = 'profile-favorite-btn';
-  const BTN_LOGOUT_ID = 'profile-logout-btn';
-
-  it('Testa se os elementos são renderizados corretamente na tela', () => {
-    renderWithRouter(<App />);
-
-    const emailInput = screen.getByTestId(EMAIL_ID);
-    const passwordInput = screen.getByTestId(PASSWORD_ID);
-    const btnLogin = screen.getByTestId(BTN_LOGIN_ID);
-
-    userEvent.type(emailInput, 'email.valido@teste.com');
-    userEvent.type(passwordInput, '1234567');
-    userEvent.click(btnLogin);
-
-    const btnProfile = screen.getByTestId(BTN_PROFILE_ID);
-    userEvent.click(btnProfile);
-
-    const userEmailEl = screen.getByTestId(USER_EMAIL_EL_ID);
-    const btnDoneRecipes = screen.getByTestId(BTN_DONE_RECIPES_ID);
-    const btnFavoriteRecipes = screen.getByTestId(BTN_FAVORITE_RECIPES_ID);
-    const btnLogout = screen.getByTestId(BTN_LOGOUT_ID);
-
-    expect(userEmailEl).toBeInTheDocument();
-    expect(btnDoneRecipes).toBeInTheDocument();
-    expect(btnFavoriteRecipes).toBeInTheDocument();
-    expect(btnLogout).toBeInTheDocument();
+  beforeEach(() => {
+    // Define um usuário fictício no localStorage antes de cada teste
+    const user = { email: emailTest };
+    localStorage.setItem('user', JSON.stringify(user));
   });
 
-  it('Verifica se ao clicar no botão de "Done Recipes", é redirecionado para o endpoint correto', () => {
-    const { history } = renderWithRouter(
-      <App />,
-      { initialEntries: ['/profile'] },
+  afterEach(() => {
+    // Limpa o localStorage após cada teste
+    localStorage.clear();
+  });
+
+  test('Exibe o email do usuário quando há um usuário armazenado', () => {
+    render(
+      <Router>
+        <Profile />
+      </Router>,
     );
 
-    const btnDoneRecipes = screen.getByTestId(BTN_DONE_RECIPES_ID);
-    userEvent.click(btnDoneRecipes);
-    expect(history.location.pathname).toBe('/done-recipes');
+    const emailElement = screen.getByTestId(profileTest);
+    expect(emailElement.textContent).toBe(emailTest);
   });
 
-  it('Verifica se ao clicar no botão de "Favorite Recipes", é redirecionado para o endpoint correto', () => {
-    const { history } = renderWithRouter(
-      <App />,
-      { initialEntries: ['/profile'] },
+  test('Exibe um texto vazio quando não há um usuário armazenado', () => {
+    localStorage.clear(); // Remove o usuário armazenado para simular a ausência de um usuário
+
+    render(
+      <Router>
+        <Profile />
+      </Router>,
     );
 
-    const btnFavoriteRecipes = screen.getByTestId(BTN_FAVORITE_RECIPES_ID);
-    userEvent.click(btnFavoriteRecipes);
-    expect(history.location.pathname).toBe('/favorite-recipes');
+    const emailElement = screen.getByTestId(profileTest);
+    expect(emailElement.textContent).toBe('');
   });
 
-  it('Verifica se ao clicar no botão de "Logout", é redirecionado para o endpoint correto', () => {
-    const { history } = renderWithRouter(<App />);
-
-    const emailInput = screen.getByTestId(EMAIL_ID);
-    const passwordInput = screen.getByTestId(PASSWORD_ID);
-    const btnLogin = screen.getByTestId(BTN_LOGIN_ID);
-
-    userEvent.type(emailInput, 'email.valido@teste.com');
-    userEvent.type(passwordInput, '1234567');
-    userEvent.click(btnLogin);
-
-    const btnProfile = screen.getByTestId(BTN_PROFILE_ID);
-    userEvent.click(btnProfile);
-
-    const btnLogout = screen.getByTestId(BTN_LOGOUT_ID);
-    userEvent.click(btnLogout);
-
-    expect(history.location.pathname).toBe('/');
-  });
-
-  it('Entra na página de profile sem fazer login', () => {
-    renderWithRouter(
-      <App />,
-      { initialEntries: ['/profile'] },
+  test('Exibe o email do usuário', () => {
+    render(
+      <Router>
+        <Profile />
+      </Router>,
     );
+
+    const emailElement = screen.getByTestId(profileTest);
+    expect(emailElement.textContent).toBe(emailTest);
+  });
+
+  test('Redireciona para a página de "Done Recipes" ao clicar no botão "Done Recipes"', () => {
+    const historyMock = { push: jest.fn() };
+    render(
+      <Router>
+        <Profile />
+      </Router>,
+    );
+
+    const doneRecipesButton = screen.getByText('Done Recipes');
+    fireEvent.click(doneRecipesButton);
+
+    expect(historyMock.push).toHaveBeenCalledWith('/done-recipes');
+  });
+
+  test('Redireciona para a página de "Favorite Recipes" ao clicar no botão "Favorite Recipes"', () => {
+    const historyMock = { push: jest.fn() };
+    render(
+      <Router>
+        <Profile />
+      </Router>,
+    );
+
+    const favoriteRecipesButton = screen.getByText('Favorite Recipes');
+    fireEvent.click(favoriteRecipesButton);
+
+    expect(historyMock.push).toHaveBeenCalledWith('/favorite-recipes');
+  });
+
+  test('Limpa o localStorage e redireciona para a página inicial ao clicar no botão "Logout"', () => {
+    const historyMock = { push: jest.fn() };
+    render(
+      <Router>
+        <Profile />
+      </Router>,
+    );
+
+    const logoutButton = screen.getByText('Logout');
+    fireEvent.click(logoutButton);
+
+    expect(localStorage.clear).toHaveBeenCalled();
+    expect(historyMock.push).toHaveBeenCalledWith('/');
   });
 });
