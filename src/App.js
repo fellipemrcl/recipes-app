@@ -17,22 +17,24 @@ function App() {
     <div>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/meals/:id">
+        <Route exact path="/meals/:id">
           <RecipeDetails />
         </Route>
-        <Route path="/drinks/:id">
+        <Route exact path="/drinks/:id">
           <RecipeDetails />
         </Route>
-        <Route path="/meals">
+        <Route exact path="/meals">
           <div>
             <Header title="Meals" showProfileIcon showSearchIcon />
             <Recipes />
+            <Footer />
           </div>
         </Route>
-        <Route path="/drinks">
+        <Route exact path="/drinks">
           <div>
             <Header title="Drinks" showProfileIcon showSearchIcon />
             <Recipes />
+            <Footer />
           </div>
         </Route>
         <Route path="/meals/:id/in-progress">
@@ -57,10 +59,11 @@ function App() {
           <div>
             <Header title="Profile" showProfileIcon />
             <Profile />
+            <Footer />
           </div>
         </Route>
       </Switch>
-      <Footer />
+
     </div>
   );
 }
