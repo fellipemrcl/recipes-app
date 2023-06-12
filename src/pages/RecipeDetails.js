@@ -86,6 +86,7 @@ function RecipeDetails() {
         </div>
       )}
       <button
+        className="start-recipe-btn"
         data-testid="start-recipe-btn"
         style={ { position: 'fixed', bottom: '0px' } }
       >
