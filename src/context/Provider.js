@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import recipeContext from './Context';
 
 function Provider({ children }) {
@@ -9,6 +10,7 @@ function Provider({ children }) {
   const [saveDrink, setSaveDrink] = useState('');
   const [validatorCategory, setValidatorCategory] = useState(false);
   const [id, setId] = useState('');
+  const history = useHistory();
 
   const fetchMeals = (url) => {
     fetch(url).then((res) => res.json()).then((data) => {
@@ -18,6 +20,9 @@ function Provider({ children }) {
         return;
       }
       setMeals(data.meals);
+      if (data.meals.length === 1) {
+        history.push(`/meals/${data.meals[0].idMeal}`);
+      }
     }).catch((error) => console.error(error));
   };
 
@@ -29,6 +34,9 @@ function Provider({ children }) {
         return;
       }
       setDrinks(data.drinks);
+      if (data.drinks.length === 1) {
+        history.push(`/drinks/${data.drinks[0].idDrink}`);
+      }
     }).catch((error) => console.error(error));
   };
 
@@ -48,22 +56,6 @@ function Provider({ children }) {
       fetchDrinks(url);
     }
   };
-
-  //   fetch(url)
-  //     .then((res) => res.json()).then((data) => {
-  //       if (pathname === '/meals' && !data.meals) {
-  //         setMeals([]);
-  //         global.alert('Sorry, we haven\'t found any recipes for these filters');
-  //       }
-  //       if (pathname === '/meals' && data.meals) setMeals(data.meals);
-  //       if (pathname === '/drinks' && !data.drinks) {
-  //         setDrinks([]);
-  //         global.alert('Sorry, we haven\'t found any recipes for these filters');
-  //       }
-  //       if (pathname === '/drinks' && data.drinks) setDrinks(data.drinks);
-  //     })
-  //     .catch((error) => console.error(error));
-  // };
 
   const value = useMemo(() => ({
     meals,
