@@ -1,8 +1,15 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom';
+import MealsInProgress from '../components/MealsInProgress';
+import DrinksInProgress from '../components/DrinksInProgress';
 
 function RecipeInProgress() {
+  const { pathname } = useLocation();
+  console.log(pathname);
   return (
-    <div>RecipeInProgress</div>
+    <div>
+      {pathname.includes('/meals') ? <MealsInProgress /> : <DrinksInProgress />}
+    </div>
   );
 }
 
