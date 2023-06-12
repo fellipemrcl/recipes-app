@@ -8,9 +8,9 @@ function RecipeDetails() {
   const { id } = useParams();
   const [recommendation, setRecommendation] = useState(null);
   const scrollContainerRef = useRef(null);
-
   const [isMeal, setIsMeal] = useState(false);
   const [isRecipeDone, setIsRecipeDone] = useState(false);
+  const [isRecipeInProgress, setIsRecipeInProgress] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,12 +23,10 @@ function RecipeDetails() {
       const recommendationUrl = isMealsPage
         ? 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
         : 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-
       const recommendationData = await fetch(recommendationUrl)
         .then((response) => response.json());
       setRecommendation(recommendationData);
     };
-
     fetchData();
   }, [history.location.pathname, id]);
 
@@ -40,6 +38,22 @@ function RecipeDetails() {
     }
   }, [id]);
 
+  useEffect(() => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    setIsRecipeInProgress(
+      inProgressRecipes
+      && (inProgressRecipes.drinks[id]
+        || Object.keys(inProgressRecipes.meals).includes(id)),
+    );
+  }, [id]);
+
+  const redirectToInProgressPage = () => {
+    if (isMeal) {
+      history.push(`/meals/${id}/in-progress`);
+    } else {
+      history.push(`/drinks/${id}/in-progress`);
+    }
+  };
   const magicNumberSix = 6;
 
   return (
@@ -98,12 +112,12 @@ function RecipeDetails() {
         <button
           data-testid="start-recipe-btn"
           style={ { position: 'fixed', bottom: '0px' } }
+          onClick={ redirectToInProgressPage }
         >
-          Start Recipe
+          {isRecipeInProgress ? 'Continue Recipe' : 'Start Recipe'}
         </button>
       )}
     </div>
   );
 }
-
 export default RecipeDetails;
