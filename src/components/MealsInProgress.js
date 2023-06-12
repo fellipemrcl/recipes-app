@@ -31,7 +31,6 @@ function MealsInProgress() {
   useEffect(() => {
     getFoodInfo();
   }, []);
-  console.log(ingredients);
   return (
     <div>
       <div>
