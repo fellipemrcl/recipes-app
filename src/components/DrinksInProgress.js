@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import shareIcon from '../images/shareIcon.svg';
+import BtnFavorite from './BtnFavorite';
 
 function DrinksInProgress() {
   const [drink, setDrink] = useState({});
@@ -51,7 +52,7 @@ function DrinksInProgress() {
       <button data-testid="share-btn">
         <img src={ shareIcon } alt="compartilhar" />
       </button>
-      <button data-testid="favorite-btn">Favoritar</button>
+      <BtnFavorite id={ id } data={ drink } />
 
       {
         ingredients.map((ingredient, index) => (
