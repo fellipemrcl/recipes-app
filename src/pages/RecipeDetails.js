@@ -8,8 +8,9 @@ function RecipeDetails() {
   const { id } = useParams();
   const [recommendation, setRecommendation] = useState(null);
   const scrollContainerRef = useRef(null);
-
   const [isMeal, setIsMeal] = useState(false);
+  const [isRecipeDone, setIsRecipeDone] = useState(false);
+  const [isRecipeInProgress, setIsRecipeInProgress] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,15 +23,37 @@ function RecipeDetails() {
       const recommendationUrl = isMealsPage
         ? 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
         : 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-
       const recommendationData = await fetch(recommendationUrl)
         .then((response) => response.json());
       setRecommendation(recommendationData);
     };
-
     fetchData();
   }, [history.location.pathname, id]);
 
+  useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes) {
+      const isDone = doneRecipes.some((recipe) => recipe.id === id);
+      setIsRecipeDone(isDone);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    setIsRecipeInProgress(
+      inProgressRecipes
+      && (inProgressRecipes.drinks[id]
+        || Object.keys(inProgressRecipes.meals).includes(id)),
+    );
+  }, [id]);
+
+  const redirectToInProgressPage = () => {
+    if (isMeal) {
+      history.push(`/meals/${id}/in-progress`);
+    } else {
+      history.push(`/drinks/${id}/in-progress`);
+    }
+  };
   const magicNumberSix = 6;
 
   return (
@@ -85,15 +108,16 @@ function RecipeDetails() {
           </div>
         </div>
       )}
-      <button
-        className="start-recipe-btn"
-        data-testid="start-recipe-btn"
-        style={ { position: 'fixed', bottom: '0px' } }
-      >
-        Start Recipe
-      </button>
+      {!isRecipeDone && (
+        <button
+          data-testid="start-recipe-btn"
+          style={ { position: 'fixed', bottom: '0px' } }
+          onClick={ redirectToInProgressPage }
+        >
+          {isRecipeInProgress ? 'Continue Recipe' : 'Start Recipe'}
+        </button>
+      )}
     </div>
   );
 }
-
 export default RecipeDetails;
