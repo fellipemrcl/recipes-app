@@ -8,16 +8,16 @@ function CardFoodsDrinks() {
   const cardIndex = 0;
   const history = useHistory();
   const location = useLocation();
-  const [food, setMeals] = useState([]);
-  const [drink, setDrinks] = useState([]);
+  // const [food, setMeals] = useState([]);
+  // const [drink, setDrinks] = useState([]);
   const [isLoading, setIsLoanding] = useState(true);
-  const { setId } = useContext(recipeContext);
+  const { meals, setMeals, drinks, setDrinks, setId } = useContext(recipeContext);
 
   const updateApi = async () => {
-    const { drinks } = await drinkApi();
-    const { meals } = await mealsApi();
-    setDrinks(drinks);
-    setMeals(meals);
+    const drinksData = await drinkApi();
+    const mealsData = await mealsApi();
+    setDrinks(drinksData.drinks);
+    setMeals(mealsData.meals);
     setIsLoanding(false);
   };
 
@@ -39,41 +39,41 @@ function CardFoodsDrinks() {
     <div>
       {!isLoading ? (
         <div>
-          {location.pathname === '/meals' ? (food.slice(cardIndex, cardIndex + maxCard)
-            .map((meals, index) => (
+          {location.pathname === '/meals' ? (meals.slice(cardIndex, cardIndex + maxCard)
+            .map((meal, index) => (
               <div key={ index } data-testid={ `${index}-recipe-card` }>
                 <button
                   onClick={ handleClick }
                 >
                   <img
                     data-testid={ `${index}-card-img` }
-                    alt={ meals.idMeal }
-                    src={ meals.strMealThumb }
+                    alt={ meal.idMeal }
+                    src={ meal.strMealThumb }
                   />
                 </button>
                 <h3
                   data-testid={ `${index}-card-name` }
                 >
-                  {meals.strMeal}
+                  {meal.strMeal}
 
                 </h3>
               </div>
-            ))) : (drink.slice(cardIndex, cardIndex + maxCard)
-            .map((drinks, index) => (
+            ))) : (drinks.slice(cardIndex, cardIndex + maxCard)
+            .map((drink, index) => (
               <div key={ index } data-testid={ `${index}-recipe-card` }>
                 <button
                   onClick={ handleClick }
                 >
                   <img
                     data-testid={ `${index}-card-img` }
-                    alt={ drinks.idDrink }
-                    src={ drinks.strDrinkThumb }
+                    alt={ drink.idDrink }
+                    src={ drink.strDrinkThumb }
                   />
                 </button>
                 <h3
                   data-testid={ `${index}-card-name` }
                 >
-                  {drinks.strDrink}
+                  {drink.strDrink}
 
                 </h3>
               </div>

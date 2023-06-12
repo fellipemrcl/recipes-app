@@ -9,12 +9,13 @@ import Provider from './context/Provider';
 ReactDOM
   .createRoot(document.getElementById('root'))
   .render(
-    <Provider>
+    (
       <BrowserRouter>
-        <App />
+        <Provider>
+          <App />
+        </Provider>
       </BrowserRouter>
-      ,
-    </Provider>,
+    ),
   );
 
 // If you want your app to work offline and load faster, you can change

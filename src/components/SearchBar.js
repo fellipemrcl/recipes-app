@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import React, { useContext, useState } from 'react';
 import recipeContext from '../context/Context';
 
@@ -7,12 +8,15 @@ export default function SearchBar() {
     text: '',
     radio: '',
   });
+
   const handleChange = (event) => {
     setOptions({ ...options, text: event.target.value });
   };
   const handleChangeRadio = (event) => {
     setOptions({ ...options, radio: event.target.name });
   };
+  const location = useLocation();
+
   return (
     <div>
       <input
@@ -59,7 +63,7 @@ export default function SearchBar() {
             global.alert('Your search must have only 1 (one) character');
             return;
           }
-          fetchMealApi(options.radio, options.text);
+          fetchMealApi(options.radio, options.text, location.pathname);
         } }
       >
         Search
