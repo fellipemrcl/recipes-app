@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import btnShare from '../images/shareIcon.svg';
 
@@ -29,12 +30,19 @@ const mockDoneRecipes = [
 ];
 
 function DoneRecipes() {
+  const [copyMsg, setCopyMsg] = useState('');
+  const handleChangeShare = ({ target }) => {
+    const link = `http://localhost:3000/meals/${target.name}`;
+    copy(link);
+    setCopyMsg('Link copied!');
+  };
   return (
     <div>
       <Header />
       <button data-testid="filter-by-all-btn">All</button>
       <button data-testid="filter-by-meal-btn">Meals</button>
       <button data-testid="filter-by-drink-btn">Drinks</button>
+      <h5>{copyMsg}</h5>
       {mockDoneRecipes.map((recipe, index) => (
         <div key={ index }>
           <img
@@ -66,7 +74,9 @@ function DoneRecipes() {
           <h5 data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</h5>
           <button
             src={ btnShare }
+            name={ recipe.id }
             data-testid={ `${index}-horizontal-share-btn` }
+            onClick={ handleChangeShare }
           >
             Compartilhar
           </button>
