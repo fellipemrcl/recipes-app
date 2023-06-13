@@ -12,15 +12,13 @@ body {
 }
 
 .start-recipe-btn {
-  position: relative;
+  position: fixed;
   right: 50%;
-  z-index: 2;
 }
 
 .fixFooter {
   bottom: 0;
   margin-top: 50px;
-  position: relative;
-  z-index: 1;
+  position: fixed;
 }
 

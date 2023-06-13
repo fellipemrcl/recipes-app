@@ -1,0 +1,78 @@
+.meal-detail-container {
+  align-items: center;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.meal-detail-container img {
+  border-radius: 8px;
+  height: auto;
+  max-width: 400px;
+  width: 100%;
+}
+
+.meal-detail-container h1 {
+  color: #333;
+  font-size: 24px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.meal-detail-container .button-group {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.meal-detail-container p {
+  color: #333;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.meal-detail-container .button-group p {
+  color: #333;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.meal-detail-container iframe {
+  border: none;
+  height: 315px;
+  margin-top: 20px;
+  max-width: 420px;
+  width: 100%;
+}
+
+.meal-detail-container h3 {
+  color: #333;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+
+@media ( max-width : 600px ) {
+
+  .meal-detail-container {
+    padding: 10px;
+  }
+
+  .meal-detail-container h1 {
+    font-size: 20px;
+  }
+
+  .meal-detail-container iframe {
+    max-width: 300px;
+  }
+
+  .meal-detail-container h3 {
+    font-size: 14px;
+  }
+
+  .meal-detail-container p {
+    font-size: 12px;
+  }
+}

@@ -5,6 +5,8 @@ import Button from './Button';
 import BtnFavorite from './BtnFavorite';
 import shareIcon from '../images/shareIcon.svg';
 
+import './MealDetail.css';
+
 export default function MealDetail() {
   const [meal, setMeal] = useState({
     strMealThumb: '',
@@ -47,7 +49,7 @@ export default function MealDetail() {
   }, [id]);
 
   return (
-    <div>
+    <div className="meal-detail-container">
       <img
         alt="imagem da receita"
         data-testid="recipe-photo"
