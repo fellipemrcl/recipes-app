@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import recipeContext from '../context/Context';
 import { filterCategory } from './RecipeApi';
 
+import './CardFoodsDrinks.css';
+
 function ComponentsFilters() {
   const maxCategory = 12;
   const categoryIndex = 0;
@@ -38,13 +40,13 @@ function ComponentsFilters() {
   };
 
   return (
-    <div>
+    <div className="card-container">
       {validatorCategory === true ? (
         <div>
           {location.pathname === '/meals' ? (foodCategory
             .slice(categoryIndex, categoryIndex + maxCategory)
             .map((meals, index) => (
-              <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <div key={ index } className="card" data-testid={ `${index}-recipe-card` }>
                 <button
                   onClick={ handleClick }
                 >
@@ -63,7 +65,7 @@ function ComponentsFilters() {
               </div>
             ))) : (drinkCategory.slice(categoryIndex, categoryIndex + maxCategory)
             .map((drinks, index) => (
-              <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <div key={ index } className="card" data-testid={ `${index}-recipe-card` }>
                 <button
                   onClick={ handleClick }
                 >

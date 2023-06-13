@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import copy from 'clipboard-copy';
+import Button from './Button';
+import BtnFavorite from './BtnFavorite';
+import shareIcon from '../images/shareIcon.svg';
 
 export default function MealDetail() {
   const [meal, setMeal] = useState({
@@ -10,6 +14,13 @@ export default function MealDetail() {
   });
   const { id } = useParams();
   const [ingredients, setIngredients] = useState([]);
+  const [copyMessage, setCopyMessage] = useState('');
+
+  const handleCopy = () => {
+    const recipeLink = window.location.href;
+    copy(recipeLink);
+    setCopyMessage('Link copied!');
+  };
 
   useEffect(() => {
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -33,7 +44,7 @@ export default function MealDetail() {
     };
 
     getFoodInfo();
-  }, []);
+  }, [id]);
 
   return (
     <div>
@@ -47,6 +58,15 @@ export default function MealDetail() {
       >
         {meal.strMeal}
       </h1>
+      <div>
+        <Button
+          onClick={ handleCopy }
+          id="share-btn"
+          text={ <img src={ shareIcon } alt="Share Button" /> }
+        />
+        <BtnFavorite />
+      </div>
+      <p>{copyMessage}</p>
       <iframe
         data-testid="video"
         title="video da receita"
