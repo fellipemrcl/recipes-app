@@ -1,73 +1,75 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Header from '../components/Header';
-import { filterCategory } from '../components/RecipeApi';
+import btnShare from '../images/shareIcon.svg';
+
+const mockDoneRecipes = [
+  {
+    id: '52771',
+    type: 'meal',
+    nationality: 'Italian',
+    category: 'Vegetarian',
+    alcoholicOrNot: '',
+    name: 'Spicy Arrabiata Penne',
+    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+    doneDate: '23/06/2020',
+    tags: 'Pasta',
+    tags2: 'Curry',
+  },
+  {
+    id: '178319',
+    type: 'drink',
+    nationality: '',
+    category: 'Cocktail',
+    alcoholicOrNot: 'Alcoholic',
+    name: 'Aquamarine',
+    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+    doneDate: '23/06/2020',
+    tags: [],
+  },
+];
 
 function DoneRecipes() {
-  const [doneMeals, setDoneMeals] = useState([]);
-  const [doneDrinks, setDoneDrinks] = useState([]);
-  const data = '13/12/2020';
-
-  const doneRecipes = async () => {
-    const { meals } = await filterCategory('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772');
-    const { drinks } = await filterCategory('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007');
-    setDoneMeals(meals);
-    setDoneDrinks(drinks);
-  };
-
-  useEffect(() => {
-    doneRecipes();
-  }, []);
-
   return (
     <div>
       <Header />
       <button data-testid="filter-by-all-btn">All</button>
       <button data-testid="filter-by-meal-btn">Meals</button>
       <button data-testid="filter-by-drink-btn">Drinks</button>
-      {doneMeals.map((recipe, index) => (
+      {mockDoneRecipes.map((recipe, index) => (
         <div key={ index }>
           <img
             data-testid={ `${index}-horizontal-image` }
-            src={ recipe.strMealThumb }
-            alt={ recipe.strMealThumb }
+            src={ recipe.image }
+            alt={ recipe.image }
           />
-          <h2 data-testid={ `${index}-horizontal-top-text` }>{recipe.strCategory}</h2>
-          <h2 data-testid={ `${index}-horizontal-name` }>{recipe.strMeal}</h2>
-          <h5 data-testid={ `${index}-horizontal-done-date` }>{data}</h5>
-          <input
-            type="button"
-            value="Compartilhar"
-            data-testid={ `${index}-horizontal-share-btn` }
-          />
+          <h2 data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</h2>
+          <h2 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h2>
           <h2
-            data-testid={ `${index}-${recipe.strTags}-horizontal-tag` }
+            data-testid={ `${index}-${recipe.tags}-horizontal-tag` }
           >
-            {recipe.strTags}
+            {recipe.tags}
 
           </h2>
-        </div>
-      ))}
-      {doneDrinks.map((recipe, index) => (
-        <div key={ index }>
-          <img
-            data-testid={ `${index}-horizontal-image` }
-            src={ recipe.strDrinkThumb }
-            alt={ recipe.strDrinkThumb }
-          />
-          <h2 data-testid={ `${index}-horizontal-top-text` }>{recipe.strCategory}</h2>
-          <h2 data-testid={ `${index}-horizontal-name` }>{recipe.strDrink}</h2>
-          <h5 data-testid={ `${index}-horizontal-done-date` }>{data}</h5>
-          <input
-            type="button"
-            value="Compartilhar"
-            data-testid={ `${index}-horizontal-share-btn` }
-          />
           <h2
-            data-testid={ `${index}-${recipe.strTags}-horizontal-tag` }
+            data-testid={ `${index}-${recipe.tags2}-horizontal-tag` }
           >
-            {recipe.strTags}
+            {recipe.tags2}
 
           </h2>
+          <h2
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            {`${recipe.nationality} - ${recipe.category}`}
+
+          </h2>
+          <h5 data-testid={ `${index}-horizontal-top-text` }>{recipe.alcoholicOrNot}</h5>
+          <h5 data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</h5>
+          <button
+            src={ btnShare }
+            data-testid={ `${index}-horizontal-share-btn` }
+          >
+            Compartilhar
+          </button>
         </div>
       ))}
     </div>
