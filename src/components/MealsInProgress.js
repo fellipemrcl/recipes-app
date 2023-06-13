@@ -23,7 +23,9 @@ function MealsInProgress() {
       const measure = meals[0][currentMeasure];
       if (measure !== null && measure !== ''
         && ingredient !== null && ingredient !== '') {
-        ingredientsWithMeasure.push(`${ingredient} - ${measure}`);
+        ingredientsWithMeasure.push({ name: `${ingredient} - ${measure}`,
+          checked: false,
+        });
       }
     }
     setIngredients(ingredientsWithMeasure);
@@ -31,6 +33,12 @@ function MealsInProgress() {
   useEffect(() => {
     getFoodInfo();
   }, []);
+
+  const handleIngredientChange = (index) => {
+    const updatedIngredients = [...ingredients];
+    updatedIngredients[index].checked = !updatedIngredients[index].checked;
+    setIngredients(updatedIngredients);
+  };
   return (
     <div>
       <div>
@@ -44,16 +52,33 @@ function MealsInProgress() {
       <button data-testid="share-btn">
         <img src={ shareIcon } alt="compartilhar" />
       </button>
-      <BtnFavorite id={ id } data={ meal } />
+      <BtnFavorite
+        id={ id }
+        name={ meal.strMeal }
+        image={ meal.strMealThumb }
+        alcoholicOrNot=""
+        type="meal"
+        nationality={ meal.strArea }
+        category={ meal.strCategory }
+
+      />
 
       <p data-testid="recipe-category">{ meal.strCategory}</p>
       {
         ingredients.map((ingredient, index) => (
           <ul key={ index }>
             <li>
-              <label data-testid={ `${index}-ingredient-step` }>
-                <input type="checkbox" />
-                { ingredient }
+              <label
+                style={ ingredient.checked === true
+                  ? { textDecoration: 'line-through solid rgb(0, 0, 0)' } : { } }
+                data-testid={ `${index}-ingredient-step` }
+              >
+                <input
+                  type="checkbox"
+                  checked={ ingredient.checked }
+                  onChange={ () => handleIngredientChange(index) }
+                />
+                { ingredient.name }
               </label>
             </li>
           </ul>

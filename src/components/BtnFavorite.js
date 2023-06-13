@@ -13,7 +13,7 @@ function BtnFavorite({ id, type, nationality, category, alcoholicOrNot, name, im
       favoriteRecipes.splice(existingRecipeIndex, 1);
       setIsFavorite(false);
     } else {
-      favoriteRecipes.push([{
+      favoriteRecipes.push({
         id,
         type,
         nationality,
@@ -21,7 +21,7 @@ function BtnFavorite({ id, type, nationality, category, alcoholicOrNot, name, im
         alcoholicOrNot,
         name,
         image,
-      }]);
+      });
       setIsFavorite(true);
     }
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
@@ -29,9 +29,12 @@ function BtnFavorite({ id, type, nationality, category, alcoholicOrNot, name, im
   return (
     <button
       onClick={ toggleFavorite }
-      data-testid="favorite-btn"
     >
-      <img src={ isFavorite ? blackHeart : whiteHeart } alt="botão favoritar" />
+      <img
+        src={ isFavorite ? blackHeart : whiteHeart }
+        alt="botão favoritar"
+        data-testid="favorite-btn"
+      />
     </button>
   );
 }
