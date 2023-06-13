@@ -12,7 +12,7 @@ function Button({
   return (
     <button
       type={ type }
-      data-testId={ id }
+      data-testid={ id }
       onClick={ onClick }
       id={ id }
       name={ name }

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
+import './Login.css';
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,7 +34,7 @@ function Login() {
           type="email"
           id="email"
           data-testid="email-input"
-          placeholder="digite seu emal"
+          placeholder="example@example.com"
           value={ email }
           onChange={ (e) => setEmail(e.target.value) }
         />
@@ -43,7 +45,7 @@ function Login() {
           type="password"
           id="password"
           data-testid="password-input"
-          placeholder="digite sua senha de 7 ou mais digitos"
+          placeholder="7+ characters"
           value={ password }
           onChange={ (e) => setPassword(e.target.value) }
         />

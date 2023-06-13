@@ -3,6 +3,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import recipeContext from '../context/Context';
 import { drinkApi, mealsApi } from './RecipeApi';
 
+import './CardFoodsDrinks.css';
+
 function CardFoodsDrinks() {
   const maxCard = 12;
   const cardIndex = 0;
@@ -36,12 +38,12 @@ function CardFoodsDrinks() {
   };
 
   return (
-    <div>
+    <div className="card-container">
       {!isLoading ? (
         <div>
           {location.pathname === '/meals' ? (meals.slice(cardIndex, cardIndex + maxCard)
             .map((meal, index) => (
-              <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <div key={ index } className="card" data-testid={ `${index}-recipe-card` }>
                 <button
                   onClick={ handleClick }
                 >
@@ -60,7 +62,7 @@ function CardFoodsDrinks() {
               </div>
             ))) : (drinks.slice(cardIndex, cardIndex + maxCard)
             .map((drink, index) => (
-              <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <div key={ index } className="card" data-testid={ `${index}-recipe-card` }>
                 <button
                   onClick={ handleClick }
                 >
@@ -80,8 +82,8 @@ function CardFoodsDrinks() {
             )))}
         </div>
       ) : (
-        <div>
-          <h1>Carregando</h1>
+        <div className="loading-container">
+          <h1 className="loading-text">Carregando</h1>
         </div>
       )}
     </div>

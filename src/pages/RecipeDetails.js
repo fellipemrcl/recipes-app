@@ -3,6 +3,15 @@ import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min
 import DrinkDetail from '../components/DrinkDetail';
 import MealDetail from '../components/MealDetail';
 
+const mockLocalStorage = {
+  drinks: {
+    15997: [],
+  },
+  meals: {
+    52977: [],
+  },
+};
+
 function RecipeDetails() {
   const history = useHistory();
   const { id } = useParams();
@@ -40,10 +49,14 @@ function RecipeDetails() {
 
   useEffect(() => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!inProgressRecipes) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(mockLocalStorage));
+    }
     setIsRecipeInProgress(
       inProgressRecipes
       && (inProgressRecipes.drinks[id]
-        || Object.keys(inProgressRecipes.meals).includes(id)),
+        || inProgressRecipes.meals[id]
+      ),
     );
   }, [id]);
 
