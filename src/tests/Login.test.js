@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import Provider from '../context/Provider';
-import renderWithRouter from './helpers/renderWithRouter';
+import renderWithRouter2 from './helpers/renderWithRouter2';
 import App from '../App';
 
 describe('Testa a tela de login', () => {
@@ -12,7 +12,7 @@ describe('Testa a tela de login', () => {
   const email = 'email-input';
   const password = 'password-input';
   test('1. Testa se renderiza os inputs corretamente', () => {
-    renderWithRouter(
+    renderWithRouter2(
       <Provider>
         <App />
       </Provider>,
@@ -22,7 +22,7 @@ describe('Testa a tela de login', () => {
     screen.getByTestId('password-input');
   });
   test('2. Testa se dá para modificar os valores do input', () => {
-    renderWithRouter(
+    renderWithRouter2(
 
       <Provider>
         <App />
@@ -41,7 +41,7 @@ describe('Testa a tela de login', () => {
     expect(inputPassword).toHaveValue(testPassword);
   });
   test('3. Testa se ao clicar no botão redireciona para a página "/meals"', async () => {
-    const { history } = renderWithRouter(
+    const { history } = renderWithRouter2(
 
       <Provider>
         <App />

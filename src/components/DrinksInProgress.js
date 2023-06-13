@@ -26,7 +26,9 @@ function DrinksInProgress() {
           const measure = drinks[0][currentMeasure];
           if (measure !== null && measure !== ''
             && ingredient !== null && ingredient !== '') {
-            ingredientsWithMeasure.push(`${ingredient} - ${measure}`);
+            ingredientsWithMeasure.push({ name: `${ingredient} - ${measure}`,
+              checked: false,
+            });
           }
         }
         setIngredients(ingredientsWithMeasure);
@@ -36,6 +38,12 @@ function DrinksInProgress() {
     };
     getFoodInfo();
   }, []);
+
+  const handleIngredientChange = (index) => {
+    const updatedIngredients = [...ingredients];
+    updatedIngredients[index].checked = !updatedIngredients[index].checked;
+    setIngredients(updatedIngredients);
+  };
   return (
     <div>
       <div>
@@ -52,21 +60,35 @@ function DrinksInProgress() {
       <button data-testid="share-btn">
         <img src={ shareIcon } alt="compartilhar" />
       </button>
-      <BtnFavorite id={ id } data={ drink } />
+      <BtnFavorite
+        id={ id }
+        name={ drink.strDrink }
+        image={ drink.strDrinkThumb }
+        nationality=""
+        alcoholicOrNot={ drink.strAlcoholic }
+        type="drink"
+        category={ drink.strCategory }
+      />
 
       {
         ingredients.map((ingredient, index) => (
           <ul key={ index }>
             <li>
-              <label data-testid={ `${index}-ingredient-step` }>
-                <input type="checkbox" />
-                { ingredient }
+              <label
+                className={ ingredient.checked === true ? 'riscado' : '' }
+                data-testid={ `${index}-ingredient-step` }
+              >
+                <input
+                  type="checkbox"
+                  checked={ ingredient.checked }
+                  onChange={ () => handleIngredientChange(index) }
+                />
+                { ingredient.name }
               </label>
             </li>
           </ul>
         ))
       }
-
       <div data-testid="instructions">
         <h2>Instruções</h2>
         <p>{ drink.strInstructions}</p>
