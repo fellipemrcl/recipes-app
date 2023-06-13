@@ -75,7 +75,8 @@ function DrinksInProgress() {
           <ul key={ index }>
             <li>
               <label
-                className={ ingredient.checked === true ? 'riscado' : '' }
+                style={ ingredient.checked === true
+                  ? { textDecoration: 'line-through solid rgb(0, 0, 0)' } : { } }
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
