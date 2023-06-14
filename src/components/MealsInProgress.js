@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom/';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import shareIcon from '../images/shareIcon.svg';
 import BtnFavorite from './BtnFavorite';
 
 function MealsInProgress() {
   const [meal, setMeal] = useState({});
+  const history = useHistory();
   const { id } = useParams();
   const [ingredients, setIngredients] = useState([]);
+  const [isbuttonDisabled, setIsbuttonDisabled] = useState(true);
   const getFoodInfo = async () => {
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const foodInfo = await fetch(url);
@@ -42,10 +45,23 @@ function MealsInProgress() {
     getFoodInfo();
   }, []);
 
+  // se todos tiverem checked a função retorna false
+  const checkButtonDisabled = () => {
+    let result = false;
+    ingredients.forEach((ingredient) => {
+      if (ingredient.checked === false) {
+        result = true;
+      }
+    });
+    setIsbuttonDisabled(result);
+  };
+
   const handleIngredientChange = (index) => {
     const updatedIngredients = [...ingredients];
     updatedIngredients[index].checked = !updatedIngredients[index].checked;
     setIngredients(updatedIngredients);
+
+    checkButtonDisabled();
 
     const storedProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
     const updatedProgress = {
@@ -57,6 +73,26 @@ function MealsInProgress() {
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(updatedProgress));
   };
+
+  const finishRecipe = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) ?? [];
+
+    const date = new Date();
+    const obj = {
+      id: meal.idMeal,
+      nationality: meal.strArea,
+      name: meal.strMeal,
+      category: meal.strCategory,
+      image: meal.strMealThumb,
+      tags: meal.strTags.split(','),
+      alcoholicOrNot: '',
+      type: 'meal',
+      doneDate: date.toISOString(),
+    };
+    localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, obj]));
+    history.push('/done-recipes');
+  };
+
   return (
     <div>
       <div>
@@ -108,7 +144,14 @@ function MealsInProgress() {
         <p>{ meal.strInstructions }</p>
       </div>
 
-      <button data-testid="finish-recipe-btn">Finalizar Receita</button>
+      <button
+        data-testid="finish-recipe-btn"
+        disabled={ isbuttonDisabled }
+        onClick={ () => finishRecipe() }
+      >
+        Finalizar Receita
+
+      </button>
     </div>
   );
 }

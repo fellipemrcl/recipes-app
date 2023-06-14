@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import shareIcon from '../images/shareIcon.svg';
 import BtnFavorite from './BtnFavorite';
 
 function DrinksInProgress() {
   const [drink, setDrink] = useState({});
+  const history = useHistory();
   const { id } = useParams();
   const [ingredients, setIngredients] = useState([]);
+  const [isbuttonDisabled, setIsbuttonDisabled] = useState(true);
 
   useEffect(() => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -47,11 +49,20 @@ function DrinksInProgress() {
     getFoodInfo();
   }, []);
 
+  const checkButtonDisabled = () => {
+    let result = false;
+    ingredients.forEach((ingredient) => {
+      if (ingredient.checked === false) {
+        result = true;
+      }
+    });
+    setIsbuttonDisabled(result);
+  };
+
   const handleIngredientChange = (index) => {
     const updatedIngredients = [...ingredients];
     updatedIngredients[index].checked = !updatedIngredients[index].checked;
     setIngredients(updatedIngredients);
-
     const storedProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
     const updatedProgress = {
       ...storedProgress,
@@ -61,6 +72,26 @@ function DrinksInProgress() {
       },
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(updatedProgress));
+    checkButtonDisabled();
+  };
+
+  const finishRecipe = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) ?? [];
+
+    const date = new Date();
+    const obj = {
+      id: drink.idDrink,
+      nationality: '',
+      name: drink.strDrink,
+      category: drink.strCategory,
+      image: drink.strDrinkThumb,
+      tags: [],
+      alcoholicOrNot: drink.strAlcoholic,
+      type: 'drink',
+      doneDate: date.toISOString(),
+    };
+    localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, obj]));
+    history.push('/done-recipes');
   };
 
   return (
@@ -114,7 +145,14 @@ function DrinksInProgress() {
         <p>{ drink.strInstructions}</p>
       </div>
 
-      <button data-testid="finish-recipe-btn">Finalizar Receita</button>
+      <button
+        data-testid="finish-recipe-btn"
+        disabled={ isbuttonDisabled }
+        onClick={ () => finishRecipe() }
+      >
+        Finalizar Receita
+
+      </button>
     </div>
   );
 }
