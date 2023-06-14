@@ -31,8 +31,16 @@ function MealsInProgress() {
         });
       }
     }
-    setIngredients(ingredientsWithMeasure);
+    const storedProgress = JSON
+      .parse(localStorage.getItem('inProgressRecipes')) || {};
+    const storedIngredients = storedProgress.meals?.[id] || [];
+    if (storedIngredients.length > 0) {
+      setIngredients(storedIngredients);
+    } else {
+      setIngredients(ingredientsWithMeasure);
+    }
   };
+
   useEffect(() => {
     getFoodInfo();
   }, []);
@@ -52,7 +60,18 @@ function MealsInProgress() {
     const updatedIngredients = [...ingredients];
     updatedIngredients[index].checked = !updatedIngredients[index].checked;
     setIngredients(updatedIngredients);
+
     checkButtonDisabled();
+
+    const storedProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    const updatedProgress = {
+      ...storedProgress,
+      meals: {
+        ...storedProgress.meals,
+        [id]: updatedIngredients,
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(updatedProgress));
   };
 
   const finishRecipe = () => {

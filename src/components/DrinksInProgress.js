@@ -33,7 +33,15 @@ function DrinksInProgress() {
             });
           }
         }
-        setIngredients(ingredientsWithMeasure);
+
+        const storedProgress = JSON
+          .parse(localStorage.getItem('inProgressRecipes')) || {};
+        const storedIngredients = storedProgress.drink?.[id] || [];
+        if (storedIngredients.length > 0) {
+          setIngredients(storedIngredients);
+        } else {
+          setIngredients(ingredientsWithMeasure);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -55,6 +63,15 @@ function DrinksInProgress() {
     const updatedIngredients = [...ingredients];
     updatedIngredients[index].checked = !updatedIngredients[index].checked;
     setIngredients(updatedIngredients);
+      const storedProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    const updatedProgress = {
+      ...storedProgress,
+      drink: {
+        ...storedProgress.drink,
+        [id]: updatedIngredients,
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(updatedProgress));
     checkButtonDisabled();
   };
 
@@ -75,6 +92,7 @@ function DrinksInProgress() {
     };
     localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, obj]));
     history.push('/done-recipes');
+
   };
 
   return (

@@ -1,19 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import blackHeart from '../images/blackHeartIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 
 function BtnFavorite({ id, type, nationality, category, alcoholicOrNot, name, image }) {
   const [isFavorite, setIsFavorite] = useState(false);
+
   function toggleFavorite() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    const existingRecipeIndex = favoriteRecipes.findIndex((recipe) => recipe.id === id);
-    const magic = -1;
-    if (existingRecipeIndex !== magic) {
-      favoriteRecipes.splice(existingRecipeIndex, 1);
+    if (favoriteRecipes.some((recipe) => +recipe.id === +id)) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes
+        .filter((recip) => +recip.id !== +id)));
       setIsFavorite(false);
     } else {
-      favoriteRecipes.push({
+      setIsFavorite(true);
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, {
         id,
         type,
         nationality,
@@ -21,11 +22,18 @@ function BtnFavorite({ id, type, nationality, category, alcoholicOrNot, name, im
         alcoholicOrNot,
         name,
         image,
-      });
-      setIsFavorite(true);
+      }]));
     }
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
   }
+
+  useEffect(() => {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    if (favoriteRecipes.some((recipe) => +recipe.id === +id)) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }, [id]);
   return (
     <button
       onClick={ toggleFavorite }
