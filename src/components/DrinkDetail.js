@@ -66,7 +66,15 @@ export default function DrinkDetail() {
           id="share-btn"
           text={ <img src={ shareIcon } alt="Share Button" /> }
         />
-        <BtnFavorite />
+        <BtnFavorite
+          id={ drink.idDrink }
+          type="drink"
+          nationality=""
+          category={ drink.strCategory }
+          alcoholicOrNot={ drink.strAlcoholic }
+          name={ drink.strDrink }
+          image={ drink.strDrinkThumb }
+        />
       </div>
       <p>{copyMessage}</p>
       <h3

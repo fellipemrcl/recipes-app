@@ -66,7 +66,15 @@ export default function MealDetail() {
           id="share-btn"
           text={ <img src={ shareIcon } alt="Share Button" /> }
         />
-        <BtnFavorite />
+        <BtnFavorite
+          id={ meal.idMeal }
+          type="meal"
+          nationality={ meal.strArea }
+          category={ meal.strCategory }
+          alcoholicOrNot=""
+          name={ meal.strMeal }
+          image={ meal.strMealThumb }
+        />
       </div>
       <p>{copyMessage}</p>
       <iframe
