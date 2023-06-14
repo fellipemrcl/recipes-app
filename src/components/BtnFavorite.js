@@ -33,7 +33,7 @@ function BtnFavorite({ id, type, nationality, category, alcoholicOrNot, name, im
     } else {
       setIsFavorite(false);
     }
-  }, []);
+  }, [id]);
   return (
     <button
       onClick={ toggleFavorite }
