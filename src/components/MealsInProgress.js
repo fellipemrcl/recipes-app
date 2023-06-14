@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom/';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import copy from 'clipboard-copy';
+import Button from './Button';
 import shareIcon from '../images/shareIcon.svg';
 import BtnFavorite from './BtnFavorite';
 
@@ -10,6 +12,15 @@ function MealsInProgress() {
   const { id } = useParams();
   const [ingredients, setIngredients] = useState([]);
   const [isbuttonDisabled, setIsbuttonDisabled] = useState(true);
+  const [copyMessage, setCopyMessage] = useState('');
+
+  const handleCopy = () => {
+    const recipeLink = `http://localhost:3000/meals/${id}`;
+    copy(recipeLink);
+    console.log(recipeLink);
+    setCopyMessage('Link copied!');
+  };
+
   const getFoodInfo = async () => {
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const foodInfo = await fetch(url);
@@ -103,9 +114,11 @@ function MealsInProgress() {
         />
         <h1 data-testid="recipe-title">{ meal.strMeal }</h1>
       </div>
-      <button data-testid="share-btn">
-        <img src={ shareIcon } alt="compartilhar" />
-      </button>
+      <Button
+        onClick={ handleCopy }
+        id="share-btn"
+        text={ <img src={ shareIcon } alt="Share Button" /> }
+      />
       <BtnFavorite
         id={ id }
         name={ meal.strMeal }
@@ -116,6 +129,7 @@ function MealsInProgress() {
         category={ meal.strCategory }
 
       />
+      <p>{copyMessage}</p>
 
       <p data-testid="recipe-category">{ meal.strCategory}</p>
       {
