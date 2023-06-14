@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import shareIcon from '../images/shareIcon.svg';
 import BtnFavorite from './BtnFavorite';
 
 function DrinksInProgress() {
   const [drink, setDrink] = useState({});
+  const history = useHistory();
   const { id } = useParams();
   const [ingredients, setIngredients] = useState([]);
   const [isbuttonDisabled, setIsbuttonDisabled] = useState(true);
@@ -56,6 +57,26 @@ function DrinksInProgress() {
     setIngredients(updatedIngredients);
     checkButtonDisabled();
   };
+
+  const finishRecipe = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) ?? [];
+
+    const date = new Date();
+    const obj = {
+      id: drink.idDrink,
+      nationality: '',
+      name: drink.strDrink,
+      category: drink.strCategory,
+      image: drink.strDrinkThumb,
+      tags: [],
+      alcoholicOrNot: drink.strAlcoholic,
+      type: 'drink',
+      doneDate: date.toISOString(),
+    };
+    localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, obj]));
+    history.push('/done-recipes');
+  };
+
   return (
     <div>
       <div>
@@ -110,6 +131,7 @@ function DrinksInProgress() {
       <button
         data-testid="finish-recipe-btn"
         disabled={ isbuttonDisabled }
+        onClick={ () => finishRecipe() }
       >
         Finalizar Receita
 

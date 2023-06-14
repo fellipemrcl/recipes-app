@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom/';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import shareIcon from '../images/shareIcon.svg';
 import BtnFavorite from './BtnFavorite';
 
 function MealsInProgress() {
   const [meal, setMeal] = useState({});
+  const history = useHistory();
   const { id } = useParams();
   const [ingredients, setIngredients] = useState([]);
   const [isbuttonDisabled, setIsbuttonDisabled] = useState(true);
@@ -51,6 +53,25 @@ function MealsInProgress() {
     updatedIngredients[index].checked = !updatedIngredients[index].checked;
     setIngredients(updatedIngredients);
     checkButtonDisabled();
+  };
+
+  const finishRecipe = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) ?? [];
+
+    const date = new Date();
+    const obj = {
+      id: meal.idMeal,
+      nationality: meal.strArea,
+      name: meal.strMeal,
+      category: meal.strCategory,
+      image: meal.strMealThumb,
+      tags: meal.strTags.split(','),
+      alcoholicOrNot: '',
+      type: 'meal',
+      doneDate: date.toISOString(),
+    };
+    localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, obj]));
+    history.push('/done-recipes');
   };
 
   return (
@@ -107,6 +128,7 @@ function MealsInProgress() {
       <button
         data-testid="finish-recipe-btn"
         disabled={ isbuttonDisabled }
+        onClick={ () => finishRecipe() }
       >
         Finalizar Receita
 
