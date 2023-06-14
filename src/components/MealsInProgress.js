@@ -7,6 +7,7 @@ function MealsInProgress() {
   const [meal, setMeal] = useState({});
   const { id } = useParams();
   const [ingredients, setIngredients] = useState([]);
+  const [isbuttonDisabled, setIsbuttonDisabled] = useState(true);
   const getFoodInfo = async () => {
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const foodInfo = await fetch(url);
@@ -34,11 +35,24 @@ function MealsInProgress() {
     getFoodInfo();
   }, []);
 
+  // se todos tiverem checked a função retorna false
+  const checkButtonDisabled = () => {
+    let result = false;
+    ingredients.forEach((ingredient) => {
+      if (ingredient.checked === false) {
+        result = true;
+      }
+    });
+    setIsbuttonDisabled(result);
+  };
+
   const handleIngredientChange = (index) => {
     const updatedIngredients = [...ingredients];
     updatedIngredients[index].checked = !updatedIngredients[index].checked;
     setIngredients(updatedIngredients);
+    checkButtonDisabled();
   };
+
   return (
     <div>
       <div>
@@ -90,7 +104,13 @@ function MealsInProgress() {
         <p>{ meal.strInstructions }</p>
       </div>
 
-      <button data-testid="finish-recipe-btn">Finalizar Receita</button>
+      <button
+        data-testid="finish-recipe-btn"
+        disabled={ isbuttonDisabled }
+      >
+        Finalizar Receita
+
+      </button>
     </div>
   );
 }

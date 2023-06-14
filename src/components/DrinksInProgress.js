@@ -7,6 +7,7 @@ function DrinksInProgress() {
   const [drink, setDrink] = useState({});
   const { id } = useParams();
   const [ingredients, setIngredients] = useState([]);
+  const [isbuttonDisabled, setIsbuttonDisabled] = useState(true);
 
   useEffect(() => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -39,10 +40,21 @@ function DrinksInProgress() {
     getFoodInfo();
   }, []);
 
+  const checkButtonDisabled = () => {
+    let result = false;
+    ingredients.forEach((ingredient) => {
+      if (ingredient.checked === false) {
+        result = true;
+      }
+    });
+    setIsbuttonDisabled(result);
+  };
+
   const handleIngredientChange = (index) => {
     const updatedIngredients = [...ingredients];
     updatedIngredients[index].checked = !updatedIngredients[index].checked;
     setIngredients(updatedIngredients);
+    checkButtonDisabled();
   };
   return (
     <div>
@@ -95,7 +107,13 @@ function DrinksInProgress() {
         <p>{ drink.strInstructions}</p>
       </div>
 
-      <button data-testid="finish-recipe-btn">Finalizar Receita</button>
+      <button
+        data-testid="finish-recipe-btn"
+        disabled={ isbuttonDisabled }
+      >
+        Finalizar Receita
+
+      </button>
     </div>
   );
 }
