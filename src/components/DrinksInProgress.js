@@ -63,7 +63,7 @@ function DrinksInProgress() {
     const updatedIngredients = [...ingredients];
     updatedIngredients[index].checked = !updatedIngredients[index].checked;
     setIngredients(updatedIngredients);
-      const storedProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    const storedProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
     const updatedProgress = {
       ...storedProgress,
       drink: {
@@ -92,7 +92,6 @@ function DrinksInProgress() {
     };
     localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, obj]));
     history.push('/done-recipes');
-
   };
 
   return (
