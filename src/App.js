@@ -51,7 +51,7 @@ function App() {
         </Route>
         <Route path="/favorite-recipes">
           <div>
-            <Header title="Favorite Recipes" showProfileIcon />
+            <Header title="Profile" showProfileIcon />
             <FavoriteRecipes />
           </div>
         </Route>
