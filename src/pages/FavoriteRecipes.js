@@ -11,7 +11,7 @@ function FavoriteRecipes() {
   const [filter, setFilter] = useState('All');
 
   useEffect(() => {
-    const getFavorites = JSON.parse(localStorage.getItem('favoriteRecipes', []));
+    const getFavorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
     setFavRecipes(getFavorites);
   }, []);
 
@@ -33,7 +33,7 @@ function FavoriteRecipes() {
         className="container__fav-recipe-header"
       >
         <Header
-          title="Favorite Recipes"
+          title="Profile"
         />
       </div>
 
