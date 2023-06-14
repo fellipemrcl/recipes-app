@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import Button from './Button';
 import BtnFavorite from './BtnFavorite';
 
 function DrinksInProgress() {
@@ -9,6 +11,13 @@ function DrinksInProgress() {
   const { id } = useParams();
   const [ingredients, setIngredients] = useState([]);
   const [isbuttonDisabled, setIsbuttonDisabled] = useState(true);
+  const [copyMessage, setCopyMessage] = useState('');
+
+  const handleCopy = () => {
+    const recipeLink = `http://localhost:3000/drinks/${id}`;
+    copy(recipeLink);
+    setCopyMessage('Link copied!');
+  };
 
   useEffect(() => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -107,9 +116,11 @@ function DrinksInProgress() {
         <p>{ drink.strAlcoholic}</p>
       </div>
 
-      <button data-testid="share-btn">
-        <img src={ shareIcon } alt="compartilhar" />
-      </button>
+      <Button
+        onClick={ handleCopy }
+        id="share-btn"
+        text={ <img src={ shareIcon } alt="Share Button" /> }
+      />
       <BtnFavorite
         id={ id }
         name={ drink.strDrink }
@@ -119,6 +130,7 @@ function DrinksInProgress() {
         type="drink"
         category={ drink.strCategory }
       />
+      <p>{copyMessage}</p>
 
       {
         ingredients.map((ingredient, index) => (
