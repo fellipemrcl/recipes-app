@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import Header from '../components/Header';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
 
@@ -29,9 +28,6 @@ function Profile() {
     <section
       className="page-profile"
     >
-      <Header
-        title="Profile"
-      />
       <p
         data-testid="profile-email"
       >

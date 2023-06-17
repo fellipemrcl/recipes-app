@@ -5,6 +5,8 @@ import Button from './Button';
 import BtnFavorite from './BtnFavorite';
 import shareIcon from '../images/shareIcon.svg';
 
+import '../styles/MealDetail.css';
+
 export default function DrinkDetail() {
   const [drink, setDrink] = useState({
     strDrinkThumb: '',
@@ -49,7 +51,7 @@ export default function DrinkDetail() {
   }, []);
 
   return (
-    <div>
+    <div className="meal-detail-container">
       <img
         alt="imagem da receita"
         data-testid="recipe-photo"

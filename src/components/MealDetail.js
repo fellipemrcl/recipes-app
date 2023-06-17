@@ -5,7 +5,7 @@ import Button from './Button';
 import BtnFavorite from './BtnFavorite';
 import shareIcon from '../images/shareIcon.svg';
 
-import './MealDetail.css';
+import '../styles/MealDetail.css';
 
 export default function MealDetail() {
   const [meal, setMeal] = useState({
@@ -60,7 +60,7 @@ export default function MealDetail() {
       >
         {meal.strMeal}
       </h1>
-      <div>
+      <div className="buttons-container">
         <Button
           onClick={ handleCopy }
           id="share-btn"
@@ -89,18 +89,24 @@ export default function MealDetail() {
       >
         {meal.strCategory}
       </h3>
-      {ingredients.map((ingredient, index) => (
-        <p
-          key={ index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {ingredient}
-        </p>))}
+      <div className="ingredients-container">
+        {ingredients.map((ingredient, index) => (
+          <p
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {ingredient}
+          </p>))}
+      </div>
+      <hr />
+      <p className="instruction-title">Instructions:</p>
       <p
+        className="instructions-text"
         data-testid="instructions"
       >
         {meal.strInstructions}
       </p>
+      <hr />
     </div>
   );
 }

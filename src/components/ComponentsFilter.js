@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import recipeContext from '../context/Context';
 import { filterCategory } from './RecipeApi';
 
-import './CardFoodsDrinks.css';
+import '../styles/CardFoodsDrinks.css';
 
 function ComponentsFilters() {
   const maxCategory = 12;

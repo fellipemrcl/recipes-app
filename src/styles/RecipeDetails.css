@@ -1,0 +1,60 @@
+.recommendations-container {
+  height: 500px;
+  width: 100%;
+}
+
+.start-recipe-btn {
+  background-color: #fccb4f;
+  border: none;
+  bottom: 0;
+  color: black;
+  font-family: Bebas Neue , sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  height: auto;
+  padding: 5vw;
+  position: fixed;
+  width: 100%;
+}
+
+.recommendation-image {
+  border-radius: 10px;
+  height: auto;
+  width: 100%;
+}
+
+.recommendation-box {
+  align-items: center;
+  background-color: #e8e9f3;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  position: relative;
+  width: 100%;
+}
+
+.recommendation-box p {
+  background-color: #fccb4f;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: black;
+  font-family: Bebas Neue , sans-serif;
+  font-size: 1.5rem;
+  height: 29px;
+  position: absolute;
+  text-align: center;
+  top: 74%;
+  width: 100%;
+  z-index: 1;
+}
+
+.recommendations-container h2 {
+  font-family: Bebas Neue , sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 5px;
+  text-align: center;
+}

@@ -3,15 +3,13 @@ import { useHistory, useLocation } from 'react-router-dom';
 import recipeContext from '../context/Context';
 import { drinkApi, mealsApi } from './RecipeApi';
 
-import './CardFoodsDrinks.css';
+import '../styles/CardFoodsDrinks.css';
 
 function CardFoodsDrinks() {
   const maxCard = 12;
   const cardIndex = 0;
   const history = useHistory();
   const location = useLocation();
-  // const [food, setMeals] = useState([]);
-  // const [drink, setDrinks] = useState([]);
   const [isLoading, setIsLoanding] = useState(true);
   const { meals, setMeals, drinks, setDrinks, setId } = useContext(recipeContext);
 

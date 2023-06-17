@@ -1,13 +1,15 @@
 footer {
   align-items: center;
-  background-color: #ccc;
+  background-color: #fccb4f;
+  bottom: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   color: #464646;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
   justify-content: center;
   position: fixed;
-  width: 100%;
+  width: 100vw;
 }
 
 .icons {

@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Recipes from './pages/Recipes';
@@ -8,7 +7,7 @@ import RecipeInProgress from './pages/RecipeInProgress';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Profile from './pages/Profile';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 

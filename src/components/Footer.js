@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/Footer.css';
-import '../App.css';
 import drink from '../images/drinkIcon.svg';
 import meal from '../images/mealIcon.svg';
 

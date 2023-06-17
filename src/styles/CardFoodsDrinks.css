@@ -1,18 +1,21 @@
 .card-container {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
 }
 
 .card {
   align-items: center;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #e8e9f3;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 20px;
+  margin: 20px 0;
+  width: auto;
 }
 
 .card button {
@@ -26,15 +29,18 @@
 }
 
 .card img {
-  border-radius: 4px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.3);
   height: auto;
-  max-width: 180px;
   width: 100%;
 }
 
 .card h3 {
   color: #333;
-  font-size: 16px;
+  font-family: Bebas Neue , sans-serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  letter-spacing: 3px;
   margin-bottom: 10px;
 }
 

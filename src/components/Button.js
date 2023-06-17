@@ -31,7 +31,6 @@ Button.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
-
 };
 
 export default Button;
