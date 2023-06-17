@@ -32,6 +32,7 @@ export default function SearchBar() {
         <div className="ingredient-container">
           <label htmlFor="ingredient">Ingredient</label>
           <input
+            className="radio-input"
             type="radio"
             data-testid="ingredient-search-radio"
             name="ingredient"
@@ -43,6 +44,7 @@ export default function SearchBar() {
         <div className="ingredient-container">
           <label htmlFor="name">Name</label>
           <input
+            className="radio-input"
             type="radio"
             data-testid="name-search-radio"
             name="name"
@@ -54,6 +56,7 @@ export default function SearchBar() {
         <div className="ingredient-container">
           <label htmlFor="first letter">First letter</label>
           <input
+            className="radio-input"
             type="radio"
             data-testid="first-letter-search-radio"
             name="first"

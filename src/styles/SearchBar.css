@@ -1,4 +1,3 @@
-/* stylelint-disable selector-no-qualifying-type */
 .search-bar-container {
   align-items: center;
   display: flex;
@@ -38,7 +37,7 @@
   width: 50vw;
 }
 
-.ingredient-container input[ type = 'radio' ] {
+.ingredient-container .radio-input {
   appearance: none;
   border: 2px solid #fccb4f;
   border-radius: 50%;
@@ -49,6 +48,6 @@
   width: 16px;
 }
 
-.ingredient-container input[ type = 'radio' ]:checked {
+.ingredient-container .radio-input:checked {
   background-color: #fccb4f;
 }
