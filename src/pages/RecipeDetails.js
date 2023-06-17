@@ -3,6 +3,8 @@ import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min
 import DrinkDetail from '../components/DrinkDetail';
 import MealDetail from '../components/MealDetail';
 
+import '../styles/RecipeDetails.css';
+
 const mockLocalStorage = {
   drinks: {
     15997: [],
@@ -73,36 +75,42 @@ function RecipeDetails() {
     <div>
       {isMeal ? <MealDetail /> : <DrinkDetail />}
       {recommendation && (
-        <div>
-          <h2>Recomendação:</h2>
+        <div className="recommendations-container">
+          <h2>Recommendations:</h2>
           <div
+            className="recommendation-father"
             ref={ scrollContainerRef }
             style={ {
               display: 'flex',
               overflowX: 'scroll',
-              width: '600px',
+              height: '100%',
             } }
           >
             {recommendation.drinks ? (
               recommendation.drinks.slice(0, magicNumberSix).map((drink, index) => (
                 <div
+                  className="recommendation-box"
                   key={ index }
                   data-testid={ `${index}-recommendation-card` }
                   style={ {
-                    flex: '0 0 calc(600px / 2)',
+                    flex: '0 0 calc(400px / 2)',
                     marginRight: '10px',
-                    border: '1px solid black',
-                    padding: '10px',
                   } }
                 >
                   <p data-testid={ `${index}-recommendation-title` }>
                     {drink.strDrink}
                   </p>
+                  <img
+                    className="recommendation-image"
+                    src={ drink.strDrinkThumb }
+                    alt={ drink.strDrink }
+                  />
                 </div>
               ))
             ) : (
               recommendation.meals.slice(0, magicNumberSix).map((meal, index) => (
                 <div
+                  className="recommendation-box"
                   key={ index }
                   data-testid={ `${index}-recommendation-card` }
                   style={ {
@@ -123,8 +131,8 @@ function RecipeDetails() {
       )}
       {!isRecipeDone && (
         <button
+          className="start-recipe-btn"
           data-testid="start-recipe-btn"
-          style={ { position: 'fixed', bottom: '0px' } }
           onClick={ redirectToInProgressPage }
         >
           {isRecipeInProgress ? 'Continue Recipe' : 'Start Recipe'}

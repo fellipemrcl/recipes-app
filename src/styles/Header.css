@@ -1,0 +1,24 @@
+body {
+  box-sizing: border-box;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+}
+
+.header-container {
+  align-items: center;
+  background-color: #fccb4f;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-buttons-container button {
+  background-color: transparent;
+  border: none;
+}
+
+.header-container h1 {
+  margin-left: 10px;
+}
