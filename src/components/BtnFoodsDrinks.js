@@ -65,7 +65,10 @@ function BtnFoodsDrinks() {
       {location.pathname === '/meals' ? (foodFiltes
         .slice(categoryIndex, categoryIndex + maxCategory)
         .map((meals, index) => (
-          <div key={ index }>
+          <div
+            key={ index }
+            className={ `card btn-category-${meals.strCategory.toLowerCase()}` }
+          >
             <button
               className={ meals.strCategory }
               data-testid={ `${meals.strCategory}-category-filter` }
@@ -78,7 +81,10 @@ function BtnFoodsDrinks() {
           </div>
         ))) : (drinkFilters.slice(categoryIndex, categoryIndex + maxCategory)
         .map((drinks, index) => (
-          <div key={ index }>
+          <div
+            key={ index }
+            className={ `card btn-category-${drinks.strCategory.toLowerCase()}` }
+          >
             <button
               data-testid={ `${drinks.strCategory}-category-filter` }
               value={ drinks.strCategory }
