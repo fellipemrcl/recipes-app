@@ -82,7 +82,7 @@ export default function MealDetail() {
         title="video da receita"
         width="420"
         height="315"
-        src={ meal.strYoutube }
+        src={ meal.strYoutube.replace('watch?v=', 'embed/') }
       />
       <h3
         data-testid="recipe-category"
