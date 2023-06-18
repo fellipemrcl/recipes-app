@@ -67,7 +67,7 @@ function BtnFoodsDrinks() {
         .map((meals, index) => (
           <div
             key={ index }
-            className={ `card btn-category-${meals.strCategory.toLowerCase()}` }
+            className={ `btn-category-${meals.strCategory.toLowerCase()}` }
           >
             <button
               className={ meals.strCategory }
@@ -83,7 +83,7 @@ function BtnFoodsDrinks() {
         .map((drinks, index) => (
           <div
             key={ index }
-            className={ `card btn-category-${drinks.strCategory.toLowerCase()}` }
+            className={ `btn-category-${drinks.strCategory.toLowerCase()}` }
           >
             <button
               data-testid={ `${drinks.strCategory}-category-filter` }
