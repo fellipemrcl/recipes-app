@@ -7,7 +7,7 @@ function RecipeInProgress() {
   const { pathname } = useLocation();
   console.log(pathname);
   return (
-    <div>
+    <div className="container-inPro">
       {pathname.includes('/meals') ? <MealsInProgress /> : <DrinksInProgress />}
     </div>
   );
