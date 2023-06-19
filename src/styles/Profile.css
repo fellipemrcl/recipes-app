@@ -1,0 +1,36 @@
+.page-profile {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: start;
+  width: 100vw;
+}
+
+.page-profile header {
+  width: 100vw;
+}
+
+.page-profile footer {
+  width: 100vw;
+}
+
+.page-profile p {
+  font-family: Bebas Neue , sans-serif;
+  font-size: 1rem;
+  letter-spacing: 5px;
+}
+
+.page-profile button {
+  background-color: #fccb4f;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.3);
+  color: black;
+  cursor: pointer;
+  font-family: Bebas Neue , sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 5px;
+  margin: 20px;
+  padding: 10px 20px;
+  width: 90%;
+}
