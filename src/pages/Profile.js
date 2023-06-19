@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
 
+import '../styles/Profile.css';
+
 function Profile() {
   const [userEmail, setUserEmail] = useState('');
   const history = useHistory();
