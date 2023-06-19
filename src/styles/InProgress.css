@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container-inPro {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: center;
+  width: 100vw;
+}
+
+.container-inPro h1 {
+  margin: 10px;
+}
+
+.container-inPro label {
+  height: auto;
+  width: auto;
+}
+
+.container-inPro li {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  justify-content: space-around;
+}
+
+.image-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.checkbox {
+  appearance: none;
+  border: 2px solid #fccb4f;
+  border-radius: 50%;
+  height: 16px;
+  outline: none;
+  width: 16px;
+}
+
+.checkbox:checked {
+  background-color: #fccb4f;
+}
+
+
+.container-inPro img {
+  border-radius: 10px;
+  box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.3);
+  width: 80%;
+}
+
+.container-inPro h3 {
+  font-family: Bebas Neue , sans-serif;
+  font-size: 2rem;
+  letter-spacing: 5px;
+}
+
+.container-inPro h2 {
+  font-family: Bebas Neue , sans-serif;
+  font-size: 2rem;
+  letter-spacing: 5px;
+  text-align: center;
+}
+
+.buttons-container img {
+  box-shadow: none;
+}
+
+.instructions-text {
+  line-height: 1.5rem;
+  text-align: justify;
+  width: 90%;
+}
+
+hr {
+  border: 2px solid #fccb4f;
+  width: 50%;
+}
+
+.finish-recipe-btn {
+  background-color: #fccb4f;
+  border: none;
+  bottom: 0;
+  color: black;
+  font-family: Bebas Neue , sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  height: auto;
+  padding: 5vw;
+  position: fixed;
+  width: 100%;
+}

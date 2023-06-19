@@ -5,6 +5,8 @@ import shareIcon from '../images/shareIcon.svg';
 import Button from './Button';
 import BtnFavorite from './BtnFavorite';
 
+import '../styles/InProgress.css';
+
 function DrinksInProgress() {
   const [drink, setDrink] = useState({});
   const history = useHistory();

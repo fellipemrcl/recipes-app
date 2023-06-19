@@ -6,6 +6,8 @@ import Button from './Button';
 import shareIcon from '../images/shareIcon.svg';
 import BtnFavorite from './BtnFavorite';
 
+import '../styles/InProgress.css';
+
 function MealsInProgress() {
   const [meal, setMeal] = useState({});
   const history = useHistory();
@@ -105,8 +107,8 @@ function MealsInProgress() {
   };
 
   return (
-    <div>
-      <div>
+    <div className="container-inPro">
+      <div className="image-container">
         <img
           src={ meal.strMealThumb }
           data-testid="recipe-photo"
@@ -114,24 +116,25 @@ function MealsInProgress() {
         />
         <h1 data-testid="recipe-title">{ meal.strMeal }</h1>
       </div>
-      <Button
-        onClick={ handleCopy }
-        id="share-btn"
-        text={ <img src={ shareIcon } alt="Share Button" /> }
-      />
-      <BtnFavorite
-        id={ id }
-        name={ meal.strMeal }
-        image={ meal.strMealThumb }
-        alcoholicOrNot=""
-        type="meal"
-        nationality={ meal.strArea }
-        category={ meal.strCategory }
+      <div className="buttons-container">
+        <Button
+          onClick={ handleCopy }
+          id="share-btn"
+          text={ <img src={ shareIcon } alt="Share Button" /> }
+        />
+        <BtnFavorite
+          id={ id }
+          name={ meal.strMeal }
+          image={ meal.strMealThumb }
+          alcoholicOrNot=""
+          type="meal"
+          nationality={ meal.strArea }
+          category={ meal.strCategory }
+        />
+        <p>{copyMessage}</p>
+      </div>
 
-      />
-      <p>{copyMessage}</p>
-
-      <p data-testid="recipe-category">{ meal.strCategory}</p>
+      <h3 data-testid="recipe-category">{ meal.strCategory}</h3>
       {
         ingredients.map((ingredient, index) => (
           <ul key={ index }>
@@ -142,6 +145,7 @@ function MealsInProgress() {
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
+                  className="checkbox"
                   type="checkbox"
                   checked={ ingredient.checked }
                   onChange={ () => handleIngredientChange(index) }
@@ -153,12 +157,13 @@ function MealsInProgress() {
         ))
       }
 
-      <div data-testid="instructions">
+      <div className="instructions-text" data-testid="instructions">
         <h2>Instruções</h2>
         <p>{ meal.strInstructions }</p>
       </div>
 
       <button
+        className="finish-recipe-btn "
         data-testid="finish-recipe-btn"
         disabled={ isbuttonDisabled }
         onClick={ () => finishRecipe() }
