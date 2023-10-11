@@ -31,7 +31,7 @@ Neste momento, a estilização da aplicação ainda não foi completamente imple
 ### **Clonar o repositório**:
 
 ```bash
-git clone git@github.com:seu-usuario/recipes-app.git
+git@github.com:fellipemrcl/recipes-app.git
 ```
 
 ## **Instalar as dependências**:
